@@ -2,11 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-const { PORT = 3000 } = process.env; // вынести порт в конфиг
+const { PORT, JWT_SECRET, DB_URL } = require('./configs'); // вынести порт в конфиг
 
 const app = express();
+const router = require('./router/index');
 
-mongoose.connect('mongodb://localhost:27017/mydb', { // вынести название дб в конфиг
+mongoose.connect(DB_URL, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -16,9 +17,7 @@ mongoose.connect('mongodb://localhost:27017/mydb', { // вынести назв�
 app.use(bodyParser.json()); // для собирания JSON-формата
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-  res.send('Hello World !');
-});
+app.use(router);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
