@@ -27,9 +27,9 @@ const articleSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(link) {
-        return validator.isUrl(link);
+        return validator.isURL(link);
       },
-      message: '{VALUE} is not a valid link!',
+      message: 'not a valid link!',
     },
   },
   image: {
@@ -37,9 +37,9 @@ const articleSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(link) {
-        return validator.isUrl(link);
+        return validator.isURL(link);
       },
-      message: '{VALUE} is not a valid link!',
+      message: 'not a valid link!',
     },
   },
   owner: {

@@ -1,14 +1,35 @@
 const router = require('express').Router();
 const posts = require('./posts');
+const users = require('./users');
 
-router.get('/hello', (req, res) => {
-  res.send('Hello World !');
+const {
+  createUser,
+  login,
+} = require('../controllers/users');
+
+const auth = require('../middlewares/auth');
+
+router.post('/signin', login); // validateUserLogin
+
+router.post('/signup', createUser); // validateUserSignup
+
+router.use(auth);
+
+router.use('/users', users);
+
+router.use('/articles', posts);
+
+router.all('*', (req, res) => {
+  res.status(404).send('Not found');
 });
 
-router.use('/posts', posts);
-// - авторизация (signin/signup)
+router.use((err, req, res, next) => {
+  const { statusCode = 500, message } = err;
 
-// auth (check JWT)
+  res.status(statusCode).send({
+    message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
+  });
+  next();
+});
 
-// route for 404 error
 module.exports = router;

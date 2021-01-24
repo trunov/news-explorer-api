@@ -8,8 +8,8 @@ const {
 } = process.env;
 
 const port = (NODE_ENV === 'production' && PORT) ? PORT : '3000';
-const jwtSecret = (NODE_ENV === 'production' && JWT_SECRET) ? JWT_SECRET : 'something';
-const dbUrl = (NODE_ENV === 'production' && DB_URL) ? DB_URL : 'mongodb://localhost:27017/mydb';
+const jwtSecret = (NODE_ENV === 'production' && JWT_SECRET) ? JWT_SECRET : 'some-secret-key';
+const dbUrl = (NODE_ENV === 'production' && DB_URL) ? DB_URL : 'mongodb://localhost:27017/mydb5';
 
 module.exports = {
   PORT: port,
