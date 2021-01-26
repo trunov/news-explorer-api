@@ -6,8 +6,13 @@ const {
   deletePost,
 } = require('../controllers/posts');
 
+const {
+  validatePost,
+  validateArticleId,
+} = require('../middlewares/celebrateHandlers');
+
 router.get('/', getPosts);
-router.post('/', createPost);
-router.delete('/:articleId', deletePost);
+router.post('/', validatePost, createPost);
+router.delete('/:articleId', validateArticleId, deletePost);
 
 module.exports = router;

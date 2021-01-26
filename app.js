@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-const { PORT, JWT_SECRET, DB_URL } = require('./configs'); // вынести порт в конфиг
+const { PORT, DB_URL } = require('./configs'); // вынести порт в конфиг
 
 const app = express();
 const router = require('./router/index');
