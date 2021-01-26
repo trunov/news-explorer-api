@@ -10,12 +10,18 @@ const {
   createUser,
   login,
 } = require('../controllers/users');
+const {
+  requestLogger,
+  errorLogger,
+} = require('../middlewares/logger');
 
 const auth = require('../middlewares/auth');
 const {
   validateUserLogin,
   validateUserSignup,
 } = require('../middlewares/celebrateHandlers');
+
+router.use(requestLogger);
 
 router.post('/signin', validateUserLogin, login);
 
@@ -26,6 +32,8 @@ router.use(auth);
 router.use('/users', users);
 
 router.use('/articles', posts);
+
+router.use(errorLogger);
 
 router.all('*', (req, res) => {
   res.status(404).send('Not found');

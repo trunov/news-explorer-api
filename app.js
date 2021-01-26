@@ -1,11 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
+const cors = require('cors');
 
 const { PORT, DB_URL } = require('./configs'); // вынести порт в конфиг
+const { limiter } = require('./configs/ratelimit');
 
 const app = express();
 const router = require('./router/index');
+
+app.use(limiter);
+app.use(helmet());
+app.use(cors());
 
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,

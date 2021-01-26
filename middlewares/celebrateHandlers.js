@@ -51,7 +51,7 @@ const validatePost = celebrate({
 
 const validateArticleId = celebrate({
   params: Joi.object().keys({
-    _id: Joi.string().alphanum().length(24).hex(),
+    articleId: Joi.string().alphanum().length(24).hex(),
   }),
 });
 
